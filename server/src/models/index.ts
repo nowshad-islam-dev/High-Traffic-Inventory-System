@@ -1,7 +1,29 @@
-import { DataTypes } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from 'sequelize';
 import { sequelize } from '../config/db';
 
-export const Drops = sequelize.define('drop', {
+interface Drops extends Model<
+  InferAttributes<Drops>,
+  InferCreationAttributes<Drops>
+> {
+  id: CreationOptional<number>;
+  name: string;
+  price: number;
+  totalStock: number;
+  availableStock: number;
+}
+
+export const Drops = sequelize.define<Drops>('drop', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -23,14 +45,42 @@ export const Drops = sequelize.define('drop', {
   },
 });
 
-export const Users = sequelize.define('user', {
+interface Users extends Model<
+  InferAttributes<Users>,
+  InferCreationAttributes<Users>
+> {
+  id: CreationOptional<number>;
+  username: string;
+}
+export const Users = sequelize.define<Users>('user', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   username: {
     type: DataTypes.STRING,
     allowNull: false,
   },
 });
 
-export const Reservations = sequelize.define('reservation', {
+interface Reservations extends Model<
+  InferAttributes<Reservations>,
+  InferCreationAttributes<Reservations>
+> {
+  id: CreationOptional<number>;
+  status: 'reserved' | 'purchased' | 'expired';
+  expiresAt: Date;
+  dropId?: number;
+  userId?: number;
+}
+
+export const Reservations = sequelize.define<Reservations>('reservation', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   status: {
     type: DataTypes.ENUM,
     values: ['reserved', 'purchased', 'expired'],
@@ -41,7 +91,20 @@ export const Reservations = sequelize.define('reservation', {
   },
 });
 
-export const Purchases = sequelize.define('Purchase', {
+interface Purchases extends Model<
+  InferAttributes<Purchases>,
+  InferCreationAttributes<Purchases>
+> {
+  id: CreationOptional<number>;
+  purchasedAt: Date;
+}
+
+export const Purchases = sequelize.define<Purchases>('Purchase', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+  },
   purchasedAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
