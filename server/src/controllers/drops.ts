@@ -14,13 +14,14 @@ export async function getAllDrops() {
   return await Drops.findAll();
 }
 
-export async function getLatestDrops() {
-  await Drops.findAll({
+export async function getDropsWithUserInformation() {
+  const drops = await Drops.findAll({
+    order: [['createdAt', 'DESC']],
     include: [
       {
         model: Purchases,
         limit: 3,
-        order: ['purchasedAt', 'DESC'],
+        order: [['purchasedAt', 'DESC']],
         include: [
           {
             model: Users,
@@ -29,5 +30,7 @@ export async function getLatestDrops() {
         ],
       },
     ],
+    subQuery: false,
   });
+  return drops;
 }

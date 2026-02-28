@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { getAllDrops, getLatestDrops, createDrop } from '../controllers/drops';
+import {
+  getAllDrops,
+  getDropsWithUserInformation,
+  createDrop,
+} from '../controllers/drops';
 
 const router = Router();
 
@@ -9,7 +13,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/latest', async (req, res) => {
-  const result = await getLatestDrops();
+  const result = await getDropsWithUserInformation();
   res.json(result);
 });
 
