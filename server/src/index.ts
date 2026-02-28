@@ -32,4 +32,4 @@ setup();
 setInterval(() => {
   console.log('Cleaning up expired reservations...');
   cleanupExpiredReservations();
-}, 5000);
+}, 10000);
