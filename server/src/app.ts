@@ -1,12 +1,12 @@
 import express from 'express';
-import { join } from 'node:path';
-import { createProduct, getProducts } from './controllers';
+import cors from 'cors';
+import dropsRouter from './routes/drops';
 
 const app = express();
-app.use(express.json());
 
-app.get('/', (req, res) => res.sendFile(join(__dirname, 'index.html')));
-app.get('/products', getProducts);
-app.post('/products', createProduct);
+app.use(express.json());
+app.use(cors());
+
+app.use('/api/drops', dropsRouter);
 
 export default app;
