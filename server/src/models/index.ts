@@ -22,6 +22,7 @@ export const Drops = sequelize.define<Drops>('drop', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    autoIncrement: true,
     primaryKey: true,
   },
   name: {
@@ -56,6 +57,7 @@ export const Users = sequelize.define<Users>('user', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    autoIncrement: true,
     primaryKey: true,
   },
   username: {
@@ -79,6 +81,7 @@ export const Reservations = sequelize.define<Reservations>('reservation', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    autoIncrement: true,
     primaryKey: true,
   },
   status: {
@@ -96,13 +99,16 @@ interface Purchases extends Model<
   InferCreationAttributes<Purchases>
 > {
   id: CreationOptional<number>;
-  purchasedAt: Date;
+  purchasedAt: CreationOptional<Date>;
+  userId?: number;
+  dropId?: number;
 }
 
 export const Purchases = sequelize.define<Purchases>('Purchase', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    autoIncrement: true,
     primaryKey: true,
   },
   purchasedAt: {
