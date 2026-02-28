@@ -3,9 +3,9 @@ import { Drops, Purchases, Users } from '../models';
 export async function createDrop(name: string, price?: number, stock?: number) {
   const newDrop = await Drops.create({
     name,
-    price,
-    totalStock: stock,
-    availableStock: stock,
+    price: price || 0,
+    totalStock: stock || 0,
+    availableStock: stock || 0,
   });
   return newDrop;
 }

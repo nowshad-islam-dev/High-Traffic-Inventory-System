@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { io } from '..';
+import { getIO } from '../config/socket';
 import { sequelize } from '../config/db';
 import { Drops, Reservations } from '../models';
 
@@ -21,7 +21,7 @@ export async function reserveItem(userId: number, dropId: number) {
     if (affectedCount === 0) {
       throw new Error('SOLD_OUT');
     }
-
+    // Create Reservation with 60s timeframe
     const reservation = await Reservations.create(
       {
         userId,
@@ -37,10 +37,9 @@ export async function reserveItem(userId: number, dropId: number) {
     const updatedDrop = await Drops.findByPk(dropId, { raw: true });
     if (!updatedDrop) throw new Error('UPDATED_DROP_NULL');
 
+    const io = getIO();
     io.emit('stock_update', {
-      //@ts-ignore
       dropId: updatedDrop.id,
-      //@ts-ignore
       availableStock: updatedDrop.availableStock,
     });
 
