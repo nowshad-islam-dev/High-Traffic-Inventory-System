@@ -17,7 +17,9 @@ export async function cleanupExpiredReservations() {
       lock: t.LOCK.UPDATE, // Lock these specific rows
     });
 
-    const affectedDropIds = [...expiredReservations.map((r) => r.id)];
+    const affectedDropIds = [
+      ...expiredReservations.map((r) => r.dropId),
+    ].filter((id) => typeof id === 'number');
 
     if (expiredReservations.length === 0) {
       await t.rollback();
