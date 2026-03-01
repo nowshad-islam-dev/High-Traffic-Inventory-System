@@ -15,7 +15,7 @@ export interface User {
 export interface Purchase {
   id: number;
   purchasedAt: Date;
-  User: User;
+  user: User;
 }
 
 export interface Reservation {

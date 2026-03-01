@@ -120,12 +120,13 @@ export const DropCard = ({ drop }: { drop: Drop }) => {
       <div className='mt-4 border-t pt-2'>
         <h3 className='font-semibold text-sm'>Recent Purchasers:</h3>
         <ul className='text-xs text-gray-600'>
-          {drop.Purchases.map((purchase: Purchase) => (
-            <li key={purchase.id}>
-              {purchase.User?.username} -{' '}
-              {new Date(purchase.purchasedAt).toLocaleTimeString()}
-            </li>
-          ))}
+          {drop.Purchases.length > 0 &&
+            drop.Purchases.map((purchase: Purchase) => (
+              <li key={purchase.id}>
+                {purchase.user?.username} -{' '}
+                {new Date(purchase.purchasedAt).toLocaleTimeString()}
+              </li>
+            ))}
         </ul>
       </div>
     </div>
