@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { socket } from '../libs/socket';
 import { getDrops } from '../api/drops';
-import type { Drop, Purchase } from '../types/api';
+import type { Drop } from '../types/api';
 
 export const useDrops = () => {
   const [drops, setDrops] = useState<Drop[]>([]);
@@ -36,28 +36,8 @@ export const useDrops = () => {
       },
     );
 
-    socket.on(
-      'new_purchase',
-      (payload: { dropId: number; purchase: Purchase }) => {
-        setDrops((current) =>
-          current.map((d) => {
-            if (d.id === payload.dropId) {
-              // Add to top and keep only the latest 3
-              const updatedPurchases = [payload.purchase, ...d.Purchases].slice(
-                0,
-                3,
-              );
-              return { ...d, Purchases: updatedPurchases };
-            }
-            return d;
-          }),
-        );
-      },
-    );
-
     return () => {
       socket.off('stock_update');
-      socket.off('new_purchase');
     };
   }, []);
 
