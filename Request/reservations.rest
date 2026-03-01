@@ -1,0 +1,10 @@
+// Create reservation
+// POST http://localhost:3000/api/reservations/:dropId
+POST http://localhost:3000/api/reservations/1
+Content-Type: application/json
+
+{
+    "userId": 1
+}
+
+

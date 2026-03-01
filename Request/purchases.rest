@@ -1,0 +1,8 @@
+// Create purchase
+// POST http://localhost:3000/api/purchases/:reservationId
+POST http://localhost:3000/api/purchases/2
+Content-Type: application/json
+
+{
+    "userId": 1
+}

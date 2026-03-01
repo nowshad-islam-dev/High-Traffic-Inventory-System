@@ -1,0 +1,17 @@
+// Create drop (admin)
+###
+POST http://localhost:3000/api/drops
+Content-Type: application/json
+
+{
+    "name": "Test 2",
+    "price": 44,
+    "stock": 33
+}
+
+// Get all drops
+// with purchase and user info
+###
+GET http://localhost:3000/api/drops
+
+
