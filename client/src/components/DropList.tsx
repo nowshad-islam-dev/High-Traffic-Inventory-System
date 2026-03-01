@@ -13,7 +13,7 @@ export const DropList = () => {
   }
 
   return (
-    <div>
+    <div className='mt-8 flex justify-center gap-2'>
       {drops.map((drop) => (
         <DropCard key={drop.id} drop={drop} />
       ))}

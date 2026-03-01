@@ -87,7 +87,7 @@ export const DropCard = ({ drop }: { drop: Drop }) => {
   const isReserved = Boolean(reservationId);
 
   return (
-    <div className='border p-4 rounded shadow'>
+    <div className='border p-4 rounded shadow min-w-xs'>
       <h2 className='text-xl font-bold'>{drop.name}</h2>
       <p>
         Stock: {drop.availableStock} / {drop.totalStock}
@@ -95,7 +95,7 @@ export const DropCard = ({ drop }: { drop: Drop }) => {
 
       <button
         onClick={() => handleReserve(drop.id)}
-        className='bg-blue-500 text-white p-2 mt-2 rounded disabled:bg-gray-400'
+        className='bg-blue-500 text-white p-2 mt-2 rounded disabled:bg-gray-400 cursor-pointer'
         disabled={drop.availableStock === 0 || Boolean(reservationId)}
       >
         {drop.availableStock > 0 ? 'Reserve' : 'Sold Out'}
@@ -109,7 +109,7 @@ export const DropCard = ({ drop }: { drop: Drop }) => {
 
           <button
             onClick={() => handlePurchase(reservationId!)}
-            className='bg-green-500 text-white p-2 mt-2 rounded'
+            className='bg-green-500 text-white p-2 mt-2 rounded cursor-pointer'
           >
             Purchase
           </button>
