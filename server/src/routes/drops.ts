@@ -1,18 +1,9 @@
 import { Router } from 'express';
-import {
-  getAllDrops,
-  getDropsWithUserInformation,
-  createDrop,
-} from '../controllers/drops';
+import { getDropsWithUserInformation, createDrop } from '../controllers/drops';
 
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const result = await getAllDrops();
-  res.json(result);
-});
-
-router.get('/latest', async (req, res) => {
   const result = await getDropsWithUserInformation();
   res.json(result);
 });

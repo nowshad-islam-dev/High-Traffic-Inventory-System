@@ -2,6 +2,7 @@ import { Op } from 'sequelize';
 import { getIO } from '../config/socket';
 import { sequelize } from '../config/db';
 import { Drops, Reservations } from '../models';
+import { AppError } from '../utils/AppError';
 
 export async function reserveItem(userId: number, dropId: number) {
   const t = await sequelize.transaction();
@@ -19,7 +20,7 @@ export async function reserveItem(userId: number, dropId: number) {
     );
 
     if (affectedCount === 0) {
-      throw new Error('SOLD_OUT');
+      throw new AppError(400, 'Drop is out of stock');
     }
     // Create Reservation with 60s timeframe
     const reservation = await Reservations.create(
@@ -35,7 +36,7 @@ export async function reserveItem(userId: number, dropId: number) {
     await t.commit();
 
     const updatedDrop = await Drops.findByPk(dropId, { raw: true });
-    if (!updatedDrop) throw new Error('UPDATED_DROP_NULL');
+    if (!updatedDrop) throw new AppError(404, 'Updated drop not found');
 
     const io = getIO();
     io.emit('stock_update', {
